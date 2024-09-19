@@ -23,7 +23,7 @@ function Header() {
         </li>
         <li>
           <div className="cartIconParent">
-            <MdShoppingCart className="cartIcon"/>
+            <MdShoppingCart className="cartIcon" />
             {<span>{cart.length}</span>}
           </div>
         </li>

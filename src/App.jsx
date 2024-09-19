@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { ecomContext } from "./Home";
 import { Link } from "react-router-dom";
+
 function App() {
   const { products, loading } = useContext(ecomContext);
 
@@ -13,8 +14,7 @@ function App() {
   );
 
   return (
-    <div>
-      <h1>Featured Products</h1>
+    <>
       <section className="homeSection">
         <div className="miniSection">
           <div className="text">
@@ -37,21 +37,25 @@ function App() {
           </div>
         </div>
       </section>
-      <ul>
+      <h1>Featured Products</h1>
+      <div className="product">
         {featuredProducts.map((product) => (
-          <li key={product.id}>
+          <div key={product.id}>
             <img
               src={product.attributes.image}
               alt={product.attributes.title}
             />
             <h2>{product.attributes.title}</h2>
-            <p>Price: {product.attributes.price}</p>
-            <p>Description: {product.attributes.description}</p>
-          </li>
+            <p>$ {product.attributes.price}</p>
+          </div>
         ))}
-      </ul>
-    </div>
+      </div>
+    </>
   );
 }
 
-export default App; 
+export default App;
+
+
+
+
