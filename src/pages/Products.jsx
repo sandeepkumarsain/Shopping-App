@@ -4,112 +4,82 @@ import { Link } from "react-router-dom";
 
 function Products() {
   const { products, loading } = useContext(ecomContext);
-  const [filteredCategoryProducts, setFilteredCategoryProducts] = useState([]);
+  const [filteredCategoryProducts, setFilteredCategoryProducts] =
+    useState(products);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCompany, setSelectedCompany] = useState("All");
+  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+
   const selectOptions = [
-    {
-      name: "All",
-      label: "All",
-      value: "All",
-    },
-    {
-      name: "Chairs",
-      label: "Chairs",
-      value: "Chairs",
-    },
-    {
-      name: "Tables",
-      label: "Tables",
-      value: "Tables",
-    },
-    {
-      name: "Kids",
-      label: "Kids",
-      value: "Kids",
-    },
-    {
-      name: "Sofas",
-      label: "Sofas",
-      value: "Sofas",
-    },
-    {
-      name: "Beds",
-      label: "Beds",
-      value: "Beds",
-    },
+    { name: "All", label: "All", value: "All" },
+    { name: "Chairs", label: "Chairs", value: "Chairs" },
+    { name: "Tables", label: "Tables", value: "Tables" },
+    { name: "Kids", label: "Kids", value: "Kids" },
+    { name: "Sofas", label: "Sofas", value: "Sofas" },
+    { name: "Beds", label: "Beds", value: "Beds" },
   ];
 
   const selectCompany = [
-    {
-      name: "All",
-      label: "All",
-      value: "All",
-    },
-    {
-      name: "Modenza",
-      label: "Modenza",
-      value: "Modenza",
-    },
-    {
-      name: "Luxora",
-      label: "Luxora",
-      value: "Luxora",
-    },
-    {
-      name: "Artifex",
-      label: "Artifex",
-      value: "Artifex",
-    },
-    {
-      name: "Comfora",
-      label: "Comfora",
-      value: "Comfora",
-    },
-    {
-      name: "Homestead",
-      label: "Homestead",
-      value: "Homestead",
-    },
+    { name: "All", label: "All", value: "All" },
+    { name: "Modenza", label: "Modenza", value: "Modenza" },
+    { name: "Luxora", label: "Luxora", value: "Luxora" },
+    { name: "Artifex", label: "Artifex", value: "Artifex" },
+    { name: "Comfora", label: "Comfora", value: "Comfora" },
+    { name: "Homestead", label: "Homestead", value: "Homestead" },
   ];
+
+  useEffect(() => {
+    filterProducts(selectedCategory, selectedCompany, searchTerm);
+  }, [products, selectedCategory, selectedCompany, searchTerm]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
-  // function handleChangeCategory(e) {
-  //  if(selectedCategory === "All"){
-  //   setFilteredCategoryProducts(products);
-  //  }else{
-  //   console.log(e.target.value, "select");
-  //   const filteredCategoryProducts = products.filter((product) => {
-  //     return product.attributes.category == e.target.value;
-  //   });
-  //   console.log(filteredCategoryProducts, "select filteredCategoryProducts");
-  //   setFilteredCategoryProducts(filteredCategoryProducts);
-  //  }
-  // }
+
   function handleChangeCategory(e) {
-    const selectedCategory = e.target.value; 
-    
-    if (selectedCategory && "All") {
-      setFilteredCategoryProducts(products);
-    } else {
-      console.log(selectedCategory, "selected category");
-      
-      const filteredCategoryProducts = products.filter((product) => {
-        return product.attributes.category === selectedCategory;
-      });
-      
-      console.log(filteredCategoryProducts, "filteredCategoryProducts");
-      setFilteredCategoryProducts(filteredCategoryProducts);
-    }
+    const category = e.target.value;
+    setSelectedCategory(category);
   }
-  
-  function handleChangeCompany(e){
-    console.log(e.target.value, "select");
-    const filteredCategoryProducts = products.filter((product) => {
-      return product.attributes.company == e.target.value;
-    });
-    console.log(filteredCategoryProducts, "select filteredCategoryProducts");
-    setFilteredCategoryProducts(filteredCategoryProducts);
+
+  function handleChangeCompany(e) {
+    const company = e.target.value;
+    setSelectedCompany(company);
+  }
+
+  function handleSearchChange(e) {
+    const search = e.target.value;
+    setSearchTerm(search); // Update search term
+  }
+
+  function filterProducts(category, company, search) {
+    let filtered = products;
+
+    if (category !== "All") {
+      filtered = filtered.filter(
+        (product) => product.attributes.category === category
+      );
+    }
+
+    if (company !== "All") {
+      filtered = filtered.filter(
+        (product) => product.attributes.company === company
+      );
+    }
+
+    if (search) {
+      filtered = filtered.filter((product) =>
+        product.attributes.title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    setFilteredCategoryProducts(filtered);
+  }
+
+  function handleClearFilters() {
+    setSelectedCategory("All");
+    setSelectedCompany("All");
+    setSearchTerm(""); // Clear search input
+    setFilteredCategoryProducts(products);
   }
 
   return (
@@ -119,43 +89,46 @@ function Products() {
         <div className="search">
           <form id="myForm">
             <label htmlFor="input">Search Products</label> <br />
-            <input type="text" id="input" />
+            <input
+              type="text"
+              id="input"
+              value={searchTerm} // Bind search term
+              onChange={handleSearchChange} // Handle input change
+            />
             <br />
             <label htmlFor="select1">Search Category</label>
             <br />
             <select
               id="select1"
-              onChange={(e) => handleChangeCategory(e)}
+              value={selectedCategory}
+              onChange={handleChangeCategory}
               name="select1"
             >
-              {selectOptions.map((item, index) => {
-                return (
-                  <option key={index} value={item.value}>
-                    {item.name}
-                  </option>
-                );
-              })}
+              {selectOptions.map((item, index) => (
+                <option key={index} value={item.value}>
+                  {item.name}
+                </option>
+              ))}
             </select>
             <br />
             <label htmlFor="select2">Select Company</label>
             <br />
             <select
               id="select2"
-              onChange={(e) => handleChangeCompany(e)}
+              value={selectedCompany}
+              onChange={handleChangeCompany}
               name="select2"
             >
-              {selectCompany.map((item, index) => {
-                return (
-                  <option key={index} value={item.value}>
-                    {item.name}
-                  </option>
-                );
-              })}
+              {selectCompany.map((item, index) => (
+                <option key={index} value={item.value}>
+                  {item.name}
+                </option>
+              ))}
             </select>
             <br />
-            
-            
-            <button type="button">ClearFilter</button>
+            <button type="button" onClick={handleClearFilters}>
+              Clear Filters
+            </button>
           </form>
         </div>
         <div className="products">

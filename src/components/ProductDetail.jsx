@@ -11,10 +11,14 @@ function ProductDetail() {
   if (!product) {
     return <div>Product not found</div>;
   }
-
   const addToCart = () => {
-    setCart([...cart, product]);
+    const isProductInCart = cart.find(item => item.id === product.id);
+    
+    if (!isProductInCart) {
+      setCart([...cart, product]);
+    }
   };
+  
 
   return (
     <div className="productDetail">
