@@ -15,17 +15,16 @@ function Home() {
   const [loading, setLoading] = useState(true);
 
   // function handleRemoveFromCart(productId) {
-  //   setCart((prevcart) => 
+  //   setCart((prevcart) =>
   //      prevcart.filter((product) => product.id !== productId);
   //   );
   // }
 
-  const handleRemoveFromCart = (productId)=>{
-  setCart((prevCart)=>{
-    return prevCart.filter((product)=> product.id !== productId)
-  })
-
-  }
+  const handleRemoveFromCart = (productId) => {
+    setCart((prevCart) => {
+      return prevCart.filter((product) => product.id !== productId);
+    });
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -34,7 +33,7 @@ function Home() {
           "https://strapi-store-server.onrender.com/api/products"
         );
         setProducts(response.data.data);
-        console.log(response.data.data)
+        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -43,7 +42,7 @@ function Home() {
     }
     fetchData();
   }, []);
- 
+
   return (
     <BrowserRouter>
       <ecomContext.Provider

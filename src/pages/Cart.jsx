@@ -4,7 +4,6 @@ import { ecomContext } from "../Home";
 function Cart() {
   const { cart, handleRemoveFromCart } = useContext(ecomContext);
 
-  // Initialize the state for quantities
   // const [quantities, setQuantities] = useState(
   //   cart.reduce((acc, product) => {
   //     acc[product.id] = product.quantity || 1;
@@ -12,21 +11,19 @@ function Cart() {
   //   }, {})
   // );/
 
-
   // function CartComponent({ cart }) {
-    // Initialize state for quantities
-    const initialQuantities = {};
-    
-    // Populate initialQuantities with the cart product ids and their respective quantities
-    cart.forEach((product) => {
-      initialQuantities[product.id] = product.quantity || 1;
-    });
-  
-    const [quantities, setQuantities] = useState(initialQuantities);
+
+  const initialQuantities = {};
+
+  cart.forEach((product) => {
+    initialQuantities[product.id] = product.quantity || 1;
+  });
+
+  const [quantities, setQuantities] = useState(initialQuantities);
 
   const [subtotal, setSubtotal] = useState(0);
-  const shippingCost = 10; // Flat shipping cost
-  const taxRate = 0.08;    // 8% tax rate
+  const shippingCost = 10;
+  const taxRate = 0.08;
 
   // Increment the quantity of a product
   // function handleInc(productId) {
@@ -37,16 +34,12 @@ function Cart() {
   // }
 
   function handleInc(productId) {
-    // Create a shallow copy of the previous quantities object
     const newQuantities = { ...quantities };
-  
-    // Increment the quantity of the specific product
+
     newQuantities[productId] = newQuantities[productId] + 1;
-  
-    // Update the state with the new quantities
+
     setQuantities(newQuantities);
   }
-  
 
   // Decrement the quantity of a product
   // function handleDec(productId) {
@@ -57,25 +50,21 @@ function Cart() {
   // }
 
   function handleDec(productId) {
-    // Create a copy of the current quantities object
     const newQuantities = {};
     for (const id in quantities) {
-      newQuantities[id] = quantities[id]; // Copy each quantity
+      newQuantities[id] = quantities[id];
     }
-  
-    // Check if the quantity is greater than 1
-    if (newQuantities[productId] > 1) {
-      newQuantities[productId]--; // Decrease the quantity
-    }
-  
-    setQuantities(newQuantities); // Update the state
-  }
-  
 
-  // Calculate Subtotal whenever the cart or quantities change
+    if (newQuantities[productId] > 1) {
+      newQuantities[productId]--;
+    }
+
+    setQuantities(newQuantities);
+  }
+
   // useEffect(() => {
   //   const newSubtotal = cart.reduce((acc, product) => {
-  //     const price = Number(product.attributes.price) || 0;  // Ensure price is a number
+  //     const price = Number(product.attributes.price) || 0;
   //     return acc + price * quantities[product.id];
   //   }, 0);
   //   setSubtotal(newSubtotal);
@@ -85,12 +74,11 @@ function Cart() {
     let newSubtotal = 0;
     for (let i = 0; i < cart.length; i++) {
       const product = cart[i];
-      const price = Number(product.attributes.price) || 0;  // Ensure price is a number
-      newSubtotal += price * quantities[product.id];  // Multiply price by quantity
+      const price = Number(product.attributes.price) || 0;
+      newSubtotal += price * quantities[product.id];
     }
     setSubtotal(newSubtotal);
   }, [cart, quantities]);
-  
 
   const taxAmount = subtotal * taxRate;
   const orderTotal = subtotal + shippingCost + taxAmount;
@@ -110,7 +98,7 @@ function Cart() {
               </div>
               <div className="cartDetailRight">
                 <h2>{product.attributes.title}</h2>
-                <p>Price: ${Number(product.attributes.price).toFixed(2)}</p> {/* Ensure price is a number */}
+                <p>Price: ${Number(product.attributes.price).toFixed(2)}</p>
                 <div className="buttons">
                   <div className="counterButton">
                     <button onClick={() => handleInc(product.id)}>+</button>

@@ -8,7 +8,7 @@ function Products() {
     useState(products);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedCompany, setSelectedCompany] = useState("All");
-  const [searchTerm, setSearchTerm] = useState(""); // New state for search term
+  const [searchTerm, setSearchTerm] = useState("");
 
   const selectOptions = [
     { name: "All", label: "All", value: "All" },
@@ -48,7 +48,7 @@ function Products() {
 
   function handleSearchChange(e) {
     const search = e.target.value;
-    setSearchTerm(search); // Update search term
+    setSearchTerm(search);
   }
 
   function filterProducts(category, company, search) {
@@ -78,7 +78,7 @@ function Products() {
   function handleClearFilters() {
     setSelectedCategory("All");
     setSelectedCompany("All");
-    setSearchTerm(""); // Clear search input
+    setSearchTerm("");
     setFilteredCategoryProducts(products);
   }
 
@@ -92,8 +92,8 @@ function Products() {
             <input
               type="text"
               id="input"
-              value={searchTerm} // Bind search term
-              onChange={handleSearchChange} // Handle input change
+              value={searchTerm}
+              onChange={handleSearchChange}
             />
             <br />
             <label htmlFor="select1">Search Category</label>
