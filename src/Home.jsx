@@ -51,7 +51,8 @@ function Home() {
       >
         <Header />
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<Register />} />
+          <Route path="/home" element={<App />} />
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
