@@ -6,7 +6,8 @@ import App from "./App";
 import Cart from "./pages/Cart";
 import Products from "./pages/Products";
 import ProductDetail from "./components/ProductDetail";
-
+import Login from "./components/Login";
+import Register from "./components/Register";
 export const ecomContext = createContext(null);
 
 function Home() {
@@ -53,6 +54,8 @@ function Home() {
           <Route path="/" element={<App />} />
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           {/* <Route path="/" element={<Products />} /> */}
           <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>

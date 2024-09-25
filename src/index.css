@@ -33,6 +33,16 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+nav{
+  background: #021431;
+  padding: 10px 0px;
+  display: flex;
+  justify-content: right;
+}
+nav a{
+  color: #fff;
+  margin-right: 40px;
+}
 
 h2 a {
   color: #333;
@@ -444,4 +454,117 @@ li:last-child {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* form css */
+
+/* General Form Styles */
+form {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Div Styling */
+form div {
+  margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Input Fields Styling */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Input Focus Styling */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff;
+}
+
+/* Error Message Styles */
+div[style="color: red"],
+div[style*="color: red"] {
+  font-size: 0.9em;
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* Submit Button Styling */
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Submit Button Hover Effect */
+button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+/* Heading Styles */
+.heading1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Login and Register Link Styles */
+.Login, .Register {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.Login p, .Register p {
+  font-size: 1em;
+}
+
+.Login a, .Register a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.Login a:hover, .Register a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  form {
+    padding: 15px;
+  }
 }

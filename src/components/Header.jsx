@@ -7,6 +7,11 @@ function Header() {
   const { cart } = useContext(ecomContext);
 
   return (
+    <>
+    <nav>
+    <Link to="/Login">Login/Guest</Link>
+    <Link to="Register">Creat Account</Link>
+    </nav>
     <header>
       <h2>
         <Link to="/">Shopping App</Link>
@@ -29,6 +34,7 @@ function Header() {
         </li>
       </ul>
     </header>
+    </>
   );
 }
 
